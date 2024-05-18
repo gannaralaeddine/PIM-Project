@@ -128,6 +128,7 @@ async function sendConfirmationEmail(email, token) {
     });
 }
 
+
 exports.confirmation = async (req, res) => {
 
 
@@ -175,4 +176,86 @@ exports.confirmation = async (req, res) => {
             return res.status(200).send( { message: "Your account has been verified" } )
         }
     }
+}
+
+
+module.exports.forgotPassword = async (req, res) => {
+    const resetCode = req.query.code
+    const email = req.query.email
+
+    const user = await User.findOne({ email: email })
+
+    if (user)
+    {
+        // token creation
+        const token = jwt.sign({ id: user.id }, config.secret, {
+            expiresIn: 86400 // 24 hours
+        });
+
+        await sendOTP(email, resetCode)
+
+        res.status(200).send( { message: "L'email de reinitialisation a été envoyé a " + user.email } )
+    }
+    else
+    {
+        res.status(404).send( { message: "User not found with this e-mail" } )
+    }
+}
+
+
+exports.resetPassword = async (req, res) => {
+    const { email, password } = req.query
+
+
+    if (password)
+    {
+        const newPasswordEncrypted = await bcrypt.hashSync(password, 8)
+
+        await User.findOneAndUpdate( { email: email }, { password: newPasswordEncrypted } )
+
+        res.status(200).send( { message: "Password updated successfully" } )
+    }
+    else
+    {
+        return res.status(403).send( { message: "Password should not be empty" } )
+    }
+}
+
+
+async function sendOTP(email, code) {
+    let transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: "gannaralaeddine@gmail.com",
+            pass: "qsgg xlrf nque mkvy",
+        },
+        tls: {rejectUnauthorized: false}
+    });
+
+    transporter.verify(function (error, success) {
+        if (error) {
+            console.log(error);
+            console.log("Server not ready");
+        } else {
+            console.log("Server is ready to take our messages");
+        }
+    });
+
+    const mailOptions = {
+        from: "gannaralaeddine@gmail.com",
+        to: email,
+        subject: "Password reset - Booking Hardware App",
+        html:
+            "<h3>You have requested to reset your password</h3><p>Your reset code is : <b style='color : blue'>" +
+            code +
+            "</b></p>",
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log("Email sent : " + info.response);
+        }
+    });
 }

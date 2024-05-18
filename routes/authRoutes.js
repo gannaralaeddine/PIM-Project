@@ -11,4 +11,8 @@ router.get("/logout", authController.logout)
 
 router.get("/confirmation/:token", authController.confirmation);
 
+router.post("/forgot-password", authController.forgotPassword);
+
+router.put("/reset-password", authController.resetPassword);
+
 module.exports = router;
