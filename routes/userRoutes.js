@@ -34,16 +34,16 @@ const upload = multer({
     fileFilter: fileFilter
 });
 
-    router.post('/add',upload.single('profileImage'),async function(req, res) {
+    router.post('/add',async function(req, res) {
         try {
+            console.log(req.body)
             const u = await new userRoutes({
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
                 email: req.body.email,
-                birthDate: (new Date(req.body.birthDate).getMonth() + 1) + "-" + new Date(req.body.birthDate).getDate() + "-" + (new Date(req.body.birthDate).getFullYear()),
+                // birthDate: (new Date(req.body.birthDate).getMonth() + 1) + "-" + new Date(req.body.birthDate).getDate() + "-" + (new Date(req.body.birthDate).getFullYear()),
                 country: req.body.country,
-                password: req.body.password,
-                profileImage: req.file.path
+                password: req.body.password
             }).save()
             res.status(201)
             res.send(u)

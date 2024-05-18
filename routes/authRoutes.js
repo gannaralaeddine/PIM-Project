@@ -3,14 +3,12 @@ const authController = require('../controllers/authController');
 
 const router = Router();
 
-router.post('/signup', authController.signup_post);
+router.post('/register', authController.register);
 
-router.post('/login', authController.login_post);
-
-router.get("/register", authController.register_view)
-
-router.get("/login", authController.login_view)
+router.post('/login', authController.login);
 
 router.get("/logout", authController.logout)
+
+router.get("/confirmation/:token", authController.confirmation);
 
 module.exports = router;

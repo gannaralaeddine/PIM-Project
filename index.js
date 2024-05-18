@@ -27,7 +27,7 @@ app.use(express.json())
 
 
 // 1- Add DB config 
-const db = require('./config/db').URL
+const db = require('./config/config').DB_URL
 
 
 // Connect to MongoDB 

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const userSchema = require('./User').UserSchema
 const Schema = mongoose.Schema
 
 const hardwareSchema = new Schema({
@@ -16,7 +15,7 @@ const hardwareSchema = new Schema({
         type: String,
         required: true
     },
-    marque:{
+    brand:{
         type: String,
         required: true
     },
@@ -26,8 +25,7 @@ const hardwareSchema = new Schema({
     },
     userId : {
         type: String
-    },
-    participants:[{ type: Schema.Types.ObjectId, ref:'User' }]
+    }
 })
 
 const Hardware =  mongoose.model('hardware', hardwareSchema)

@@ -4,11 +4,10 @@ const LabRoutes = require('../models/Lab')
 const jwt_decode = require('jwt-decode')
 // import jwt_decode from 'jwt-decode';
 
-const user = require("../models/User")
 
     router.post('/add', async function (req, res) {
         try {
-            const decodedToken = jwt_decode(req.cookies.jwt)
+            // const decodedToken = jwt_decode(req.cookies.jwt)
             const lab = await new LabRoutes({
                 title: req.body.title,
                 number: req.body.number,
