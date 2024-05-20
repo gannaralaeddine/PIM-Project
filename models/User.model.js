@@ -36,7 +36,6 @@ const User = mongoose.model(
             isVerified: {
                 type: Boolean,
                 default: false
-
             }
         },
         { timestamps: true })

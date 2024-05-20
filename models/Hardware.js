@@ -11,10 +11,6 @@ const hardwareSchema = new Schema({
         type: String,
         required: true
     },
-    quantity:{
-        type: String,
-        required: true
-    },
     brand:{
         type: String,
         required: true
@@ -23,8 +19,16 @@ const hardwareSchema = new Schema({
         type: String,
         required: true
     },
+    lab:{
+        type: String,
+        required: true
+    },
     userId : {
         type: String
+    },
+    isAvailable: {
+        type: Boolean,
+        default: false
     }
 })
 

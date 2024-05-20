@@ -5,13 +5,11 @@ const jwt_decode = require('jwt-decode')
 // import jwt_decode from 'jwt-decode';
 
 
-    router.post('/add', async function (req, res) {
+router.post('/add', async function (req, res) {
         try {
             // const decodedToken = jwt_decode(req.cookies.jwt)
-            const lab = await new LabRoutes({
-                title: req.body.title,
-                number: req.body.number,
-            }).save()
+            const lab = await new LabRoutes({ title: req.body.title, number: req.body.number }
+            ).save()
             // user.findById(decodedToken.id, function(err, user) {
             //     if(user)
             //     {

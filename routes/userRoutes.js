@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const userRoutes = require('../models/User');
 const multer = require('multer');
+const hardwareController = require("../controllers/hardwareController");
+const userController= require("../controllers/userController");
+
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) 
@@ -87,27 +90,10 @@ const upload = multer({
     })
 
 
-    router.put("/update/:id",function(req,res){
+    router.get("/getUserById/",userController.getUser)
 
-        userRoutes.findByIdAndUpdate(req.params.id,{
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
-            birthDate: req.body.birthDate,
-            country: req.body.country,
-            password: req.body.password
-        },function(err){
-            if (err)
-            {
-                console.log(err)
-            }
-            else
-            {
-                console.log("userRoutes updated successfully")
-            }
 
-        })
-    })
+    router.put("/update/profile",userController.updateProfile)
 
 
 

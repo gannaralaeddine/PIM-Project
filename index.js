@@ -2,9 +2,10 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const multer = require('multer')
-const user = require('./routes/userRoutes')
+const userRoutes = require('./routes/userRoutes')
 const lab = require('./routes/labRoutes')
 const authRoutes = require('./routes/authRoutes')
+const hardwareRoutes = require('./routes/hardwareRoutes')
 const { requireAuth, checkUser } = require("./middleware/authMiddleware");
 const cookieParser = require("cookie-parser")
 
@@ -40,12 +41,10 @@ mongoose
 // Items route API Middleware
 app.get('*', checkUser)
 app.use('/lab', lab)
-// app.use('/hotel',hotel)
-// app.use('/monument',monument)
-// app.use('/museum', museum)
-app.use('/user', user)
-app.use(authRoutes)
 
+app.use('/user', userRoutes)
+app.use(authRoutes)
+app.use(hardwareRoutes)
 
 // Routes for views
 app.get('/', (req, res) => res.render('home'))
