@@ -1,8 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const LabRoutes = require('../models/Lab')
-const jwt_decode = require('jwt-decode')
-// import jwt_decode from 'jwt-decode';
 
 
 router.post('/add', async function (req, res) {
@@ -20,7 +17,8 @@ router.post('/add', async function (req, res) {
             res.status(201)
             res.send(lab)
             console.log("Lab added successfully with status code: " + res.status )
-        } catch (err) {
+        }
+        catch (err) {
             console.log(err)
             res.send(err.status)
         }

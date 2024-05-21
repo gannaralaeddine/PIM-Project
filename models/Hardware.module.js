@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const DispoDate = require("./DispoDate.model");
 const Schema = mongoose.Schema
 
 const hardwareSchema = new Schema({
@@ -29,9 +30,18 @@ const hardwareSchema = new Schema({
     isAvailable: {
         type: Boolean,
         default: false
-    }
+    },
+    // dispoDates: [ { type: Schema.Types.ObjectId, ref: 'DispoDate' } ]
+    dispoDates: [{
+        date: {
+            type:String,
+            required:true,
+        },
+        // dispoTimes: [ { type: mongoose.Schema.Types.ObjectId, ref: 'DispoTime' } ]
+        dispoTimes: [ { type: String } ]
+    } ]
 })
 
-const Hardware =  mongoose.model('hardware', hardwareSchema)
+const HardwareModule =  mongoose.model('hardware', hardwareSchema)
 
-module.exports = Hardware
+module.exports = HardwareModule

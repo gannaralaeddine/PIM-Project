@@ -1,11 +1,10 @@
 // Imports
 const express = require('express')
 const mongoose = require('mongoose')
-const multer = require('multer')
 const userRoutes = require('./routes/userRoutes')
-const lab = require('./routes/labRoutes')
 const authRoutes = require('./routes/authRoutes')
 const hardwareRoutes = require('./routes/hardwareRoutes')
+const reservationRoutes = require('./routes/reservationRoutes')
 const { requireAuth, checkUser } = require("./middleware/authMiddleware");
 const cookieParser = require("cookie-parser")
 
@@ -40,9 +39,9 @@ mongoose
 // 2- Add Routes API ./routes/api
 // Items route API Middleware
 app.get('*', checkUser)
-app.use('/lab', lab)
 
 app.use('/user', userRoutes)
+app.use("/booking", reservationRoutes)
 app.use(authRoutes)
 app.use(hardwareRoutes)
 

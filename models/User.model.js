@@ -27,12 +27,11 @@ const User = mongoose.model(
                 type:String,
                 required:true
             },
-            roles: [
-                {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: "Role"
-                }
-            ],
+            role: {
+              type: String,
+              required: true,
+              default: "user"
+            },
             isVerified: {
                 type: Boolean,
                 default: false
