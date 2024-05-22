@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const DispoDate = require("./DispoDate.model");
 const Schema = mongoose.Schema
 
 const hardwareSchema = new Schema({
@@ -34,8 +33,7 @@ const hardwareSchema = new Schema({
     // dispoDates: [ { type: Schema.Types.ObjectId, ref: 'DispoDate' } ]
     dispoDates: [{
         date: {
-            type:String,
-            required:true,
+            type:String
         },
         // dispoTimes: [ { type: mongoose.Schema.Types.ObjectId, ref: 'DispoTime' } ]
         dispoTimes: [ { type: String } ]

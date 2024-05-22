@@ -4,5 +4,6 @@ module.exports = {
 
     DB_URL: "mongodb+srv://gannarala:gannaralapassword@pim-project.hukf6w7.mongodb.net/",
     APP_URL: "http://192.168.1.246:5000/",
+    // APP_URL: "http://192.168.1.18:5000/",
     secret: "Aladin53130606"
 }
