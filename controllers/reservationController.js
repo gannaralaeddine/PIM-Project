@@ -118,3 +118,46 @@ module.exports.getMyBookingList = async (req, res) => {
     return res.status(200).send(myBookingsList)
 
 }
+
+module.exports.retrieveBooking = async (req, res) => {
+
+    const booking = await Booking.findOne({_id: req.query.id}).exec();
+
+    if (!booking)
+    {
+        return res.status(404).send({ message: "Booking not found" })
+    }
+
+    return res.status(200).send( booking )
+}
+
+module.exports.cancelBooking = async (req, res) => {
+    // find booking by id
+    let booking = await Booking.findById({_id: req.query.id})
+    let hardware, reservationTimesArray = []
+
+    if (booking)
+    {
+        // find hardware by id
+        hardware = await Hardware.findById({_id: booking.hardware._id})
+    }
+
+    hardware.dispoDates.forEach((dateElement) => {
+        if (dateElement.date === booking.date)
+        {
+            dateElement.dispoTimes.forEach((timeElement) => {
+                if (timeElement !== booking.time)
+                {
+                    reservationTimesArray.push(timeElement)
+                }
+            })
+
+            dateElement.dispoTimes = reservationTimesArray
+        }
+    })
+
+    await hardware.save()
+    await Booking.findByIdAndDelete({ _id: req.query.id })
+
+    return res.status(200).send({ message: "Booking canceled successfully" })
+}

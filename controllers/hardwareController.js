@@ -25,7 +25,7 @@ module.exports.createNewHardware = async (req, res) => {
 }
 
 
-module.exports.retreiveHarwareList = async (req, res) => {
+module.exports.retrieveHardwareList = async (req, res) => {
 
     const hardwares = await Hardware.find()
 
@@ -34,7 +34,7 @@ module.exports.retreiveHarwareList = async (req, res) => {
 }
 
 
-module.exports.retreiveHardware = async (req, res) => {
+module.exports.retrieveHardware = async (req, res) => {
 
     let existedHardware = await Hardware.findOne({_id: req.query.id}).exec();
 
