@@ -33,6 +33,7 @@ module.exports.retreiveHarwareList = async (req, res) => {
 
 }
 
+
 module.exports.retreiveHardware = async (req, res) => {
 
     let existedHardware = await Hardware.findOne({_id: req.query.id}).exec();
@@ -47,4 +48,27 @@ module.exports.retreiveHardware = async (req, res) => {
         return res.status(404).send({ message: "Hardware not found !"})
     }
 
+}
+
+
+module.exports.updateHardware = async (req, res) => {
+    const { title, reference, brand, model, lab } = req.query
+
+    let hardware = await Hardware.findByIdAndUpdate(
+        {_id: req.query.id},
+
+        {
+            "title": title,
+            "reference": reference,
+            "brand": brand,
+            "model": model,
+            "lab": lab
+        },
+
+        {
+            new: true
+        }
+    )
+    console.log(`hardware title is: ${hardware.title}`)
+    return res.status(200).send({ message: "Hardware updated successfully" })
 }

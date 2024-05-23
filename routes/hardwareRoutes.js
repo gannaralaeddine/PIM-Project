@@ -9,4 +9,7 @@ router.get('/hardware/list', hardwareController.retreiveHarwareList);
 
 router.get('/hardware/getHardware', hardwareController.retreiveHardware);
 
+router.put('/hardware/updateHardware', hardwareController.updateHardware);
+
+
 module.exports = router;
